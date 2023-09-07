@@ -125,3 +125,4 @@ INSERT INTO "profile" ("userId", "fullName", "phoneNumber", "gender", "professio
 (3, 'Apriyansah', '0857294', 'false', 'pilot', 'indonesia', '2023-06-07');
 INSERT INTO "reservationSections" ("name", "price") VALUES ('Section reg, Row 1', '15'), ('Section vip, Row 2', '35'), ('Section vvip, Row 3', '50');
 INSERT INTO "reservationStatus" ("name") VALUES ('Pending'), ('Paid'), ('Expired');
+CREATE DATABASE sekolahdb;

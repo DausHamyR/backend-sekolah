@@ -1,37 +1,29 @@
 const db = require("../helpers/db.helper")
 
-exports.findAll = async function (page, limit, search, sort, sortBy) {
-    page = parseInt(page) || 1
-    limit = parseInt(limit) || 5
-    search = search || ""
-    sort = sort || "id"
-    sortBy = sortBy || "ASC"
+exports.findAll = async function (params) {
+    params.page = parseInt(params.page) || 1
+    params.limit = parseInt(params.limit) || 5
+    params.search = params.search || ""
+    params.sort = params.sort || "id"
+    params.sortBy = params.sortBy || "ASC"
 
-    const offset = (page - 1) * limit
+    const offset = (params.page - 1) * params.limit
 
     const query = `
-SELECT * FROM "paymentMethod" 
-WHERE "name" 
+SELECT * FROM "kategori" 
+WHERE "kategori" 
 LIKE $3 
-ORDER BY ${sort} ${sortBy} 
+ORDER BY ${params.sort} ${params.sortBy} 
 LIMIT $1 OFFSET $2
 `
-    const values = [limit, offset, `%${search}%`]
+    const values = [params.limit, offset, `%${params.search}%`]
     const {rows} = await db.query(query, values)
-    return rows
-}
-
-exports.findAll2 = async function () {
-    const query = `
-    SELECT * FROM "paymentMethod"
-    `
-    const {rows} = await db.query(query)
     return rows
 }
 
 exports.findOne = async function (id) {
     const query = `
-    SELECT * FROM "paymentMethod" WHERE id=$1
+    SELECT * FROM "kategori" WHERE id=$1
     `
     const values = [id]
     const {rows} = await db.query(query, values)
@@ -40,29 +32,29 @@ exports.findOne = async function (id) {
 
 exports.insert = async function (data) {
     const query = `
-    INSERT INTO "paymentMethod" ("name")
+    INSERT INTO "kategori" ("kategori")
     VALUES ($1) RETURNING *
     `
-    const values = [data.name]
+    const values = [data.kategori]
     const {rows} = await db.query(query, values)
     return rows[0]
 }
 
 exports.update = async function (id, data) {
     const query = `
-    UPDATE "paymentMethod"
-    SET "name"=$2
+    UPDATE "kategori"
+    SET "kategori"=$2
     WHERE "id"=$1
     RETURNING *
   `
-    const values = [id, data.name]
+    const values = [id, data.kategori]
     const {rows} = await db.query(query, values)
     return rows[0]
 }
 
 exports.destroy = async function (id) {
     const query = `
-    DELETE FROM "paymentMethod" WHERE "id"=$1 RETURNING *
+    DELETE FROM "kategori" WHERE "id"=$1 RETURNING *
   `
     const values = [id]
     const {rows} = await db.query(query, values)
