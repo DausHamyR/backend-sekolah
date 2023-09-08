@@ -8,6 +8,7 @@ router.get("/", (request, response) => {
 })
 
 router.use("/kategori", require("./kategori.router"))
+router.use("/halaman", require("./halaman.router"))
 
 router.use("*", (request, response) => {
     return response.status(404).json({
