@@ -7,7 +7,7 @@ router.get("/", (request, response) => {
     })
 })
 
-router.use("/auth", require("./auth.router"))
+router.use("/kategori", require("./kategori.router"))
 
 router.use("*", (request, response) => {
     return response.status(404).json({
